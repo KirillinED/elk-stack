@@ -1,5 +1,4 @@
 .env
-certs/*
 esdata01/*
 esdata02/*
 kibana/data/*
