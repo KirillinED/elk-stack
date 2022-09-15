@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   es01:
@@ -7,16 +7,17 @@ services:
       - ./esdata01:/usr/share/elasticsearch/data
     ports:
       - ${ES_PORT}:9200
+      - 9300:9300
     environment:
       - node.name=es01
       - cluster.name=${CLUSTER_NAME}
-      - cluster.initial_master_nodes=es01,es02
-      - discovery.seed_hosts=es02
+      - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=true
       - xpack.security.enabled=false
       - xpack.security.http.ssl.enabled=false
       - xpack.security.transport.ssl.enabled=false
       - xpack.license.self_generated.type=${LICENSE}
+
     deploy:
       resources:
         limits:
@@ -60,6 +61,7 @@ services:
     environment:
       - SERVERNAME=kibana
       - ELASTICSEARCH_HOSTS=http://es01:9200
+      - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=31h0T6e2VflbGaameyDBV8FvbNm7pIzZ9rY1f+y30wwlXABonhRJdXQYDcsYlW6Z
 
   logstash:
     depends_on:
